@@ -18,9 +18,12 @@
  * *********************************************************************** */
 package org.matsim.other;
 
+import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
+import org.matsim.api.core.v01.network.Link;
 import org.matsim.core.config.Config;
 import org.matsim.core.config.ConfigUtils;
+import org.matsim.core.config.groups.ControllerConfigGroup;
 import org.matsim.core.controler.Controler;
 import org.matsim.core.controler.OutputDirectoryHierarchy.OverwriteFileSetting;
 import org.matsim.core.scenario.ScenarioUtils;
@@ -44,13 +47,17 @@ public class RunMatsimWithoutApplication {
 
         // possibly modify config here
 
-		// ---
+		config.controller().setOutputDirectory("output-test");
+		config.controller().setLastIteration(10);
+		config.controller().setCompressionType(ControllerConfigGroup.CompressionType.gzip);
+
 		
 		Scenario scenario = ScenarioUtils.loadScenario(config) ;
 
 		// possibly modify scenario here
 		
-		// ---
+		Link link = scenario.getNetwork().getLinks().get(Id.createLinkId("2"));
+		link.setFreespeed(2.0);
 		
 		Controler controler = new Controler( scenario ) ;
 		
