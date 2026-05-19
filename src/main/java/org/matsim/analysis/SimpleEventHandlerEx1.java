@@ -1,8 +1,6 @@
-package org.matsim;
+package org.matsim.analysis;
 
-import org.matsim.api.core.v01.events.ActivityEndEvent;
 import org.matsim.api.core.v01.events.LinkLeaveEvent;
-import org.matsim.api.core.v01.events.handler.ActivityEndEventHandler;
 import org.matsim.api.core.v01.events.handler.LinkLeaveEventHandler;
 import org.matsim.core.api.experimental.events.EventsManager;
 import org.matsim.core.events.EventsUtils;
@@ -13,10 +11,7 @@ public class SimpleEventHandlerEx1 {
         EventsManager eventsManager = EventsUtils.createEventsManager();
 
         SimpleLeaveCounter handler = new SimpleLeaveCounter();
-
         eventsManager.addHandler(handler);
-
-        eventsManager.addHandler((new EventsHandlerEx2()));
 
         int countBefore = handler.getCounter();
 
@@ -27,11 +22,7 @@ public class SimpleEventHandlerEx1 {
         System.out.println("Count before " + countBefore);
         System.out.println("Count before " + countAfter);
 
-        SimpleLeaveCounter handler2 = new SimpleLeaveCounter();
-
-
     }
-
 
     public static class SimpleLeaveCounter implements LinkLeaveEventHandler {
 
